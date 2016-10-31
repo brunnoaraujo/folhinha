@@ -1,4 +1,4 @@
-from flask import Flask, request, g
+from flask import Flask, request, g, render_template
 import datetime
 import sqlite3
 import json
@@ -28,8 +28,13 @@ def index():
 
 @app.route("/value" , methods=['GET', 'POST'])
 def value():
+	data = [lista['hora'], lista['temperatura']]
+	return json.dumps(data)
+
+@app.route("/graph")
+def graph():
 	
-	return json.dumps(lista)
+	return render_template('chart.html')
 
 
 if __name__ == '__main__':
