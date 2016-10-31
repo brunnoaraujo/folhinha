@@ -10,7 +10,7 @@ lista = {}
 def index():
 	global lista
 
-	t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+	t = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 	temp = request.values.get("temp")
 	ldr = request.values.get("ldr")
 	
@@ -29,7 +29,7 @@ def index():
 @app.route("/value" , methods=['GET', 'POST'])
 def value():
 	data = [lista['hora'], lista['temperatura']]
-	return '['+ json.dumps(','.join(data)).replace('"', '') + ']', 200, {'Content-Type': 'text/json; charset=utf-8'}
+	return json.dumps(data).replace('"', ''), 200, {'Content-Type': 'text/json; charset=utf-8'}
 
 @app.route("/graph")
 def graph():
