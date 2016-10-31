@@ -1,5 +1,6 @@
 from flask import Flask, request, g, render_template
 import datetime
+import time
 import sqlite3
 import json
 app = Flask(__name__)
@@ -10,7 +11,8 @@ lista = {}
 def index():
 	global lista
 
-	t = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+	te = datetime.datetime.utcnow()
+	t = time.mktime(te.timetuple())
 	temp = request.values.get("temp")
 	ldr = request.values.get("ldr")
 	
@@ -29,7 +31,7 @@ def index():
 @app.route("/value" , methods=['GET', 'POST'])
 def value():
 	data = [lista['hora'], lista['temperatura']]
-	return json.dumps(data).replace('"', ''), 200, {'Content-Type': 'text/json; charset=utf-8'}
+	return json.dumps(data).replace('"', '')
 
 @app.route("/graph")
 def graph():
