@@ -29,7 +29,7 @@ def index():
 @app.route("/value" , methods=['GET', 'POST'])
 def value():
 	data = [lista['hora'], lista['temperatura']]
-	return '['+ json.dumps(','.join(data)).replace('"', '') + ']'
+	return '['+ json.dumps(','.join(data)).replace('"', '') + ']', 200, {'Content-Type': 'text/json; charset=utf-8'}
 
 @app.route("/graph")
 def graph():
